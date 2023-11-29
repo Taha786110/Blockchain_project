@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            {% comment %} height: 100vh; {% endcomment %}
+            flex-direction: column;
+            gap: 20px;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            font-family: 'Roboto', sans-serif;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px; /* Add some space below the button */
+        }
+        .form-container {
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        .form-field {
+            margin-bottom: 10px;
+            widht: 100%;
+        }
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-field input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+.button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+        button:hover {
+            background: linear-gradient(to right, #5b86e5, #36d1dc);
+        }
+        loading {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 9999;
+            background: rgba(255,255,255,0.8) url('https://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+        .spinner-container {
+            position: relative;
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+        }
+        #loadingDiv {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            z-index: 9999;
+        }
+    
+        .loader {
+            width: 150px; /* double the original size */
+            height: 150px; /* double the original size */
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: rotate 1s linear infinite;
+        }
+          .loader::before , .loader::after {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            inset: 0px;
+            border-radius: 50%;
+            border: 5px solid #FFF;
+            animation: prixClipFix 2s linear infinite ;
+          }
+          .loader::after{
+            border-color: #FF3D00;
+            animation: prixClipFix 2s linear infinite , rotate 0.5s linear infinite reverse;
+            inset: 6px;
+          }
+    
+          @keyframes rotate {
+            0%   {transform: rotate(0deg)}
+            100%   {transform: rotate(360deg)}
+          }
+    
+          @keyframes prixClipFix {
+              0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+              25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+              50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+              75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+              100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+          }
+
+        /* Hide the spinner initially */
+        .spinner-container .loader {
+            display: none;
+        }
+
+    </style>
+    <script>
+        function showLoaderOnClick(url) {
+            showLoader();
+            window.location=url;
+        }
+        function showLoader(){
+            $('body').append('<div style="" id="loadingDiv"><div class="loader">Loading...</div></div>');
+        }
+    </script>
+    
+    <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    
+</head>
+<body>
+
+    {% comment %} <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div> {% endcomment %}
+    
+    <H1> Blockchain based E-certificate Generator </H1>
+   
+    <form method="post">
+        {% csrf_token %}
+    <div class="form-container">
+        <div class="form-field">
+            <label for="verify_id">id:</label>
+            <input type="text" id="verify_id" name="verify_id">
+        </div>
+        <div class="form-field">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+        </div>
+        <div class="form-field">
+            <label for="program">Program:</label>
+            <input type="text" id="program" name="program">
+        </div>
+        <div class="form-field">
+            <label for="year">Year of Issue:</label>
+            <input type="text" id="year" name="year">
+        </div>
+        <div class="form-field">
+            <label for="sem">Sem:</label>
+            <input type="text" id="sem" name="sem">
+        </div>
+        <div class="form-field">
+            <label for="yr">Year:</label>
+            <input type="text" id="yr" name="yr">
+        </div>
+        <div class="form-field">
+            <label for="grade">Grade:</label>
+            <input type="text" id="grade" name="grade">
+        </div>
+        <div class="form-field">
+            <label for="department">Department:</label>
+            <input type="text" id="department" name="department">
+        </div>
+        <div class="form-field">
+            <label for="start_date">Start date:</label>
+            <input type="text" id="start_date" name="start_date">
+        </div>
+        <div class="form-field">
+            <label for="end_date">End date:</label>
+            <input type="text" id="end_date" name="end_date">
+        </div>
+        {% comment %} <div class="form-field">
+            <label for="certificate">Upload Template:</label>
+            <input type="file" id="certificate" name="certificate">
+        </div> {% endcomment %}
+        <div class="spinner-container">
+            <button type="submit">Submit</button>
+            <div class="loader"></div>
+        </div>
+        <script>
+            // Get the button and spinner elements
+            const button = document.querySelector('button');
+            const loader = document.querySelector('.loader');
+    
+            // Add a click event listener to the button
+            button.addEventListener('click', () => {
+                // Show the spinner
+                loader.style.display = 'block';
+    
+                // Simulate a loading process with a delay
+                setTimeout(() => {
+                    // Hide the spinner after the delay
+                    loader.style.display = 'none';
+                }, 30000); // Set a delay of 2 seconds to simulate loading time
+            });
+        </script> 
+        
+    </form>
+        
+    </div>
+	<div class="button-container">
+        <a href="http://127.0.0.1:8000/multiple" class="button">Multiple</a>
+    </div>
+    <div class="button-container">
+        <a href="http://127.0.0.1:8000/fetch" class="button">Fecth generated details</a>
+    </div>
+</body> 
+</html>

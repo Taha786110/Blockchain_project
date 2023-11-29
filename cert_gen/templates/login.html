@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends "admin/login.html" %} 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoginSystem</title> 
+    <style>
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px; /* Add some space below the button */
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Login"/>
+        
+    </form>
+    <div class="button-container">
+        <a href="http://127.0.0.1:8000/fetch" class="button">Fecth generated details</a>
+    </div>
+
+</body>
+</html>

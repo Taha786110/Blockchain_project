@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DETAILS</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            {% comment %} height: 100vh; {% endcomment %}
+            flex-direction: column;
+            gap: 20px;
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            font-family: 'Roboto', sans-serif;
+        }
+        .custom-file-upload {
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            transition: background 0.5s ease;
+        }
+        .custom-file-upload:hover {
+            background: linear-gradient(to right, #5b86e5, #36d1dc);
+        }
+        .custom-file-upload input[type="file"] {
+            display: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            color: white;
+            cursor: pointer;
+            transition: background 0.5s ease;
+        }
+        button:hover {
+            background: linear-gradient(to right, #5b86e5, #36d1dc);
+        }
+        .tab2 {
+            tab-size: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <h3 align="center">
+        DETAILS
+    </h3>
+    <form method="get">
+        {% csrf_token %}
+        <div class="form-field">
+            <label for="verify_id">verify:</label>
+            <input type="text" id="verify_id" name="verify_id">
+            <button type="submit">Submit:</button>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            {% comment %} <h1>All Students </h1> {% endcomment %}
+            {% for data in form %}
+            <pre class="tab2">ID = {{data.verify_id}}</pre>
+            <pre class="tab2">Name = {{data.name}}</pre>
+            <pre class="tab2">Program = {{data.program}}</pre>
+            <pre class="tab2">issue year = {{data.year}}</pre>
+            <pre class="tab2">year = {{data.yr}}</pre>
+            <pre class="tab2">sem= {{data.sem}}</pre>
+            <pre class="tab2">grade = {{data.grade}}</pre>
+            <pre class="tab2">Department = {{data.Department}}</pre>
+            <pre class="tab2">start date = {{data.start_date}}</pre>
+            <pre class="tab2">end date = {{data.end_date}}</pre>
+            <pre class="tab2">hash id = {{data.tx_rc}}</pre>
+                <br>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
