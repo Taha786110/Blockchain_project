@@ -94,8 +94,8 @@ def multiple(request):
             # get abi
             abi = json.loads(compiled_sol["contracts"]["certification.sol"]["Certification"]["metadata"])["output"]["abi"]
 
-            w3 = Web3(Web3.HTTPProvider("https://goerli.infura.io/v3/2dfe1de1052143f9a434791a5375b4c7"))
-            chain_id = 5
+            w3 = Web3(Web3.HTTPProvider("{Your Infura API}"))
+            chain_id = {Your testnet Chain ID}
 
             if chain_id == 4:
                 w3.middleware_onion.inject(geth_poa_middleware, layer=0)
@@ -103,8 +103,8 @@ def multiple(request):
             #Added print statement to ensure connection suceeded as per
             #https://web3py.readthedocs.io/en/stable/middleware.html#geth-style-proof-of-authority
 
-            my_address = "0x134100eD70e2c35f464576BAf9A00bdaf11FcaA5"
-            private_key = "0xe8f8d8a9eca5622af84bb95626a82825ac9c20e4f3f7a2f585070f61d331facc"
+            my_address = "{Your wallet address}"
+            private_key = "{Your Wallet Private key}"
 
 
             Certification = w3.eth.contract(abi=abi, bytecode=bytecode)
